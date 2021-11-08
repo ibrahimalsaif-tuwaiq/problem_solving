@@ -7,5 +7,6 @@ function isPalindrome(string) {
   }
 }
 
+
 console.log(isPalindrome("bob")); //true
 console.log(isPalindrome("hello")); //false
