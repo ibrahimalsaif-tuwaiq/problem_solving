@@ -22,7 +22,13 @@ function lower(str) {
 }
 
 const updateAnimal = (arr, callback) => {
-  // Solution code here...
+  let newArray = [];
+
+  arr.forEach((string) => {
+    newArray.push(callback(string));
+  });
+
+  return newArray;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -34,7 +40,7 @@ For example: 'Cat' would come before 'apple'
 ------------------------------------------------------------------------------------------------ */
 
 const sortNames = (arr) => {
-  // Solution code here...
+  return arr.sort();
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -46,7 +52,7 @@ HINT: Beware... JS default is "Lexical" ordering.
 ------------------------------------------------------------------------------------------------ */
 
 const sortNumbers = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => a - b);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -58,7 +64,7 @@ HINT: Do it with a custom sort callback, not with using `.reverse()`. ;)
 ------------------------------------------------------------------------------------------------ */
 
 const sortBackwards = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => b - a);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -72,7 +78,7 @@ For example, ['Alphabet', 'Zebra', 'alphabet', 'carrot'] is correctly sorted.
 ------------------------------------------------------------------------------------------------ */
 
 const alphabetize = (arr) => {
-  // Solution code here...
+  return arr.sort();
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -89,7 +95,7 @@ Here is an example of the input:
 ------------------------------------------------------------------------------------------------ */
 
 const sortByPrice = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => a.price - b.price);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -101,7 +107,9 @@ For example, ['Alphabet', 'alphabet', 'carrot', 'Zebra'] is correctly sorted, an
 ------------------------------------------------------------------------------------------------ */
 
 const alphabetizeBetter = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -111,7 +119,9 @@ Write a function named sortByLength that takes in an array of strings and return
 ------------------------------------------------------------------------------------------------ */
 
 const sortByLength = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    return a.length - b.length;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -123,7 +133,9 @@ For example, [1, 14, 0.2, -281, 54782] is only correctly sorted in that order.
 ------------------------------------------------------------------------------------------------ */
 
 const sortNumbersByLength = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    return String(a).length - String(b).length;
+  });
 };
 
 /*-----------------------------------------------------------------------------------------------
@@ -145,7 +157,9 @@ const people = [
 ];
 
 const sortPeople = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    return a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : 1;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -159,7 +173,11 @@ If two people have the same full name, the younger one should come first. Do not
 ------------------------------------------------------------------------------------------------ */
 
 const sortPeopleBetter = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    if (a.lastName !== b.lastName) return a.lastName < b.lastName ? -1 : 1;
+    if (a.firstName !== b.firstName) return a.firstName < b.firstName ? -1 : 1;
+    return a.age < b.age ? -1 : 1;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -175,6 +193,7 @@ function Meeting(dayOfWeek, start, end) {
   this.start = start;
   this.end = end;
 }
+
 const meetings = [
   new Meeting("Monday", "0900", "1000"),
   new Meeting("Wednesday", "1300", "1500"),
@@ -184,8 +203,20 @@ const meetings = [
   new Meeting("Friday", "1200", "1345"),
 ];
 
+const days = {
+  Sunday: 0,
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6,
+};
+
 const sortMeetingsByDay = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    return days[a.dayOfWeek] - days[b.dayOfWeek];
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -199,7 +230,11 @@ You DO NOT need to use your solution to Challenge 9 in completing Challenge 10.
 ------------------------------------------------------------------------------------------------ */
 
 const sortSchedule = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    const metting1 = a.end - a.start;
+    const metting2 = b.end - b.start;
+    return days[a.dayOfWeek] - days[b.dayOfWeek] || metting1 - metting2;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -265,32 +300,6 @@ describe("Testing challenge 5", () => {
 });
 
 describe("Testing challenge 6", () => {
-  test("It should sort strings by length", () => {
-    const ans = sortByLength(["alphabet", "Zebra", "Alphabet", "carrot"]);
-    expect(ans.slice(0, 2)).toStrictEqual(["Zebra", "carrot"]);
-    expect(ans.slice(2, 4)).toEqual(
-      expect.arrayContaining(["Alphabet", "alphabet"])
-    );
-    expect(sortByLength(["a", "bc", ""])).toStrictEqual(["", "a", "bc"]);
-    expect(sortByLength(["a"])).toStrictEqual(["a"]);
-    expect(sortByLength([])).toStrictEqual([]);
-  });
-});
-
-describe("Testing challenge 7", () => {
-  test("It should alphabetize without regard to capitalization", () => {
-    expect(
-      alphabetizeBetter(["Alice", "apple", "alert", "Average"])
-    ).toStrictEqual(["alert", "Alice", "apple", "Average"]);
-    const ans = alphabetizeBetter(["alphabet", "Zebra", "Alphabet", "carrot"]);
-    expect(ans.slice(0, 2)).toEqual(
-      expect.arrayContaining(["Alphabet", "alphabet"])
-    );
-    expect(ans.slice(2)).toStrictEqual(["carrot", "Zebra"]);
-  });
-});
-
-describe("Testing challenge 8", () => {
   test("It should sort items by their price", () => {
     expect(
       sortByPrice([
@@ -308,6 +317,32 @@ describe("Testing challenge 8", () => {
       { price: 12 },
     ]);
     expect(sortByPrice([])).toStrictEqual([]);
+  });
+});
+
+describe("Testing challenge 7", () => {
+  test("It should alphabetize without regard to capitalization", () => {
+    expect(
+      alphabetizeBetter(["Alice", "apple", "alert", "Average"])
+    ).toStrictEqual(["alert", "Alice", "apple", "Average"]);
+    const ans = alphabetizeBetter(["alphabet", "Zebra", "Alphabet", "carrot"]);
+    expect(ans.slice(0, 2)).toEqual(
+      expect.arrayContaining(["Alphabet", "alphabet"])
+    );
+    expect(ans.slice(2)).toStrictEqual(["carrot", "Zebra"]);
+  });
+});
+
+describe("Testing challenge 8", () => {
+  test("It should sort strings by length", () => {
+    const ans = sortByLength(["alphabet", "Zebra", "Alphabet", "carrot"]);
+    expect(ans.slice(0, 2)).toStrictEqual(["Zebra", "carrot"]);
+    expect(ans.slice(2, 4)).toEqual(
+      expect.arrayContaining(["Alphabet", "alphabet"])
+    );
+    expect(sortByLength(["a", "bc", ""])).toStrictEqual(["", "a", "bc"]);
+    expect(sortByLength(["a"])).toStrictEqual(["a"]);
+    expect(sortByLength([])).toStrictEqual([]);
   });
 });
 
