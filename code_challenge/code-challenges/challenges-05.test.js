@@ -25,7 +25,7 @@ let starWarsPeople = [
 ];
 
 const sortStarWarsCharacters = (starWarsArr) => {
-  // Solution code here...
+  return starWarsArr.sort((a, b) => b.height - a.height);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -35,7 +35,8 @@ Write a function named removeThree that takes an index and an array. The functio
 ------------------------------------------------------------------------------------------------ */
 
 const removeThree = (idx, arr) => {
-  // Solution code here...
+  arr.splice(idx, 3);
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Write a function named joinArray that takes an array and joins all of the elemen
 ------------------------------------------------------------------------------------------------ */
 
 const joinArray = (arr) => {
-  // Solution code here...
+  return arr.join(" ");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -63,7 +64,14 @@ For example, if the input is 'Welcome', the output will be:
 
 const howMuchPencil = (str) => {
   let result = [];
-  // Solution code here...
+  let newString = str;
+
+  for (let i = 0; i <= str.length; i++) {
+    result.push(newString);
+    newString = newString.slice(1);
+  }
+
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -75,7 +83,7 @@ For example, wordsToCharList('gregor') returns ['g','r','e','g','o','r'].
 ------------------------------------------------------------------------------------------------ */
 
 const wordsToCharList = (arr) => {
-  // Solution code here...
+  return arr.split("");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -120,7 +128,14 @@ const gruffaloCrumble = {
 
 const listFoods = (recipe) => {
   let result = [];
-  // Solution code here...
+
+  result = recipe.ingredients.map((item) => {
+    const space = item.indexOf(" ");
+    const newString = item.slice(space + 1);
+    return newString.slice(newString.indexOf(" ") + 1);
+  });
+
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -133,7 +148,13 @@ You may also use other string or array methods.
 
 const splitFoods = (recipe) => {
   let result = [];
-  // Solution code here...
+
+  result = recipe.ingredients.map((item) => {
+    const newString = item.split(" ");
+    return newString.slice(2).join(" ");
+  });
+
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -148,7 +169,12 @@ Return a new array containing just the verbs. For example, ['Mix until evenly di
 
 const stepActions = (recipe) => {
   let result = [];
-  // Solution code here...
+
+  result = recipe.steps.map((step) => {
+    return step.split(" ")[0];
+  });
+
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -165,7 +191,9 @@ For example:
 ------------------------------------------------------------------------------------------------ */
 
 const removeEvenValues = (arr) => {
-  // Solution code here...
+  return arr.filter((number) => {
+    return number % 2 !== 0;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -184,7 +212,7 @@ removeLastCharacters('Gregor', 9) returns ''
 ------------------------------------------------------------------------------------------------ */
 
 const removeLastCharacters = (str, numberOfCharacters) => {
-  // Solution code here...
+  return str.slice(0, str.length - numberOfCharacters);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -195,7 +223,14 @@ Write a function named totalSumCSV that, given a string of comma-separated value
 
 const totalSumCSV = (str) => {
   let total = 0;
-  // Solution code here...
+
+  const numbers = str.split(",");
+
+  numbers.forEach((number) => {
+    total += Number(number);
+  });
+
+  return total;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -207,7 +242,7 @@ For example, removeVowels('gregor') returns 'grgr'.
 ------------------------------------------------------------------------------------------------ */
 
 const removeVowels = (str) => {
-  // Solution code here...
+  return str.replace(/[aeiou]/gi, "");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -221,7 +256,12 @@ Similarly, extractVowels('The quick brown fox') returns ['Th qck brwn fx', 'eioo
 ------------------------------------------------------------------------------------------------ */
 
 const extractVowels = (str) => {
-  // Solution code here...
+  let result = [];
+
+  result[0] = str.replace(/[aeiou]/gi, "");
+  result[1] = str.replace(/[^aeiou]/gi, "").split('').sort().join('');
+
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -360,13 +400,13 @@ describe("Testing challenge 8", () => {
 describe("Testing challenge 9", () => {
   test("It should remove the even numbers from the array", () => {
     let list = [1, 2, 3, 4, 5, 6];
-    removeEvenValues(list);
-    expect(list).toStrictEqual([1, 3, 5]);
+
+    expect(removeEvenValues(list)).toStrictEqual([1, 3, 5]);
 
     list = [6, 3, 19, 43, 12, 66, 43];
-    removeEvenValues(list);
-    expect(list).toStrictEqual([3, 19, 43, 43]);
-    expect(list.length).toStrictEqual(4);
+
+    expect(removeEvenValues(list)).toStrictEqual([3, 19, 43, 43]);
+    expect(removeEvenValues(list).length).toStrictEqual(4);
   });
 });
 
