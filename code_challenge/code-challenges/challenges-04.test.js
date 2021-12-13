@@ -110,9 +110,12 @@ Do not use the vertical bar (pipe) in your pattern.
 ------------------------------------------------------------------------------------------------ */
 
 const matchMonth = (input) => {
-  const regex = /\wOctober\wOct\woctober\woct\w/;
+  const regex1 = /\boct\b/;
+  const regex2 = /\Oct\b/;
+  const regex3 = /\bOctober\b/;
+  const regex4 = /\boctober\b/;
 
-  return regex.test(input);
+  return regex1.test(input) || regex2.test(input) || regex3.test(input) || regex4.test(input);
 };
 
 /* ------------------------------------------------------------------------------------------------
