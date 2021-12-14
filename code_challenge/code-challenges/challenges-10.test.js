@@ -23,7 +23,7 @@ Returns: ['dyoll', 'eimaj'];
 ------------------------------------------------------------------------------------------------ */
 
 const getNames = (arr) => {
-  // Solution code here...
+  return arr.map((person) => person.name.split("").reverse().join(""));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -37,7 +37,11 @@ For example, count(5, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]]) returns 4.
 ------------------------------------------------------------------------------------------------ */
 
 const count = (target, input) => {
-  // Solution code here...
+  return input.reduce((acc, array) => {
+    const foundArray = array.filter((number) => number === target);
+    acc += foundArray.length;
+    return acc;
+  }, 0);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -51,7 +55,14 @@ For example, [[1, 2, 3, 4, 5], [6, 7, 2, 4, 5, 7], [9, 2, 3, 6,]] returns 66.
 ------------------------------------------------------------------------------------------------ */
 
 const totalSum = (input) => {
-  // Solution code here...
+  return input.reduce((acc, array) => {
+    const arraySum = array.reduce((acc, number) => {
+      acc += number;
+      return acc;
+    }, 0);
+    acc += arraySum;
+    return acc;
+  }, 0);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -67,7 +78,15 @@ For example, [ [0,2,5,4], [2,4,10], [] ] should return [ [1, 32], [1024], [] ].
 ------------------------------------------------------------------------------------------------ */
 
 const divisibleByFiveTwoToThePower = (input) => {
-  // Solution code here...
+  return input.reduce((acc, array) => {
+    const newArray = array
+      .filter((number) => {
+        if (typeof number == "number" && number % 5 == 0) return number;
+      })
+      .map((number) => Math.pow(2, number));
+    acc.push(newArray);
+    return acc;
+  }, []);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -135,7 +154,12 @@ let starWarsData = [
 ];
 
 let findMaleAndFemale = (data) => {
-  // Solution code here...
+  return data
+    .filter(
+      (character) => character.gender == "male" || character.gender == "female"
+    )
+    .map((character) => character.name)
+    .join(" and ");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -145,7 +169,11 @@ Write a function named findShortest that, given the Star Wars data from Challeng
 ------------------------------------------------------------------------------------------------ */
 
 let findShortest = (data) => {
-  // Solution code here...
+  const shortestCharacter = data.reduce((acc, character) => {
+    return Number(acc.height) < Number(character.height) ? acc : character;
+  });
+
+  return shortestCharacter.name;
 };
 
 /* ------------------------------------------------------------------------------------------------
