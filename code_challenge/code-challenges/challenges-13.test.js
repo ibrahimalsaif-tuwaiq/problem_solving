@@ -7,7 +7,17 @@ Write a function named longestString that takes in an array of strings and retur
 ------------------------------------------------------------------------------------------------ */
 
 const longestString = (arr) => {
-  // Solution code here...
+  let longestStringIndex = 0;
+
+  if (arr.length > 0) {
+    arr.forEach((string, index) => {
+      if (arr[longestStringIndex].length < string.length)
+        longestStringIndex = index;
+    });
+
+    return longestStringIndex;
+  }
+  return -1;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -19,7 +29,7 @@ For example, ['this is great :)', 'wow', 'whyyyyyy :(', ':)))))'] returns ['t', 
 ------------------------------------------------------------------------------------------------ */
 
 const firstLetters = (arr) => {
-  // Solution code here...
+  return arr.map((string) => string.slice(0, 1));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -31,7 +41,7 @@ For example, ['this is great :)', 'wow', 'whyyyyyy :(', ':)))))'] returns ['this
 ------------------------------------------------------------------------------------------------ */
 
 const findHappiness = (arr) => {
-  // Solution code here...
+  return arr.filter((string) => string.includes(":)"));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -43,7 +53,9 @@ For example, (123) 456-7890 returns 1234567890
 ------------------------------------------------------------------------------------------------ */
 
 const standardizePhoneNumbers = (arr) => {
-  // Solution code here...
+  return arr.map((number) => {
+    return number.replace(/\s|\(|\)|\-/g, "");
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -55,7 +67,10 @@ For example, 'abcdefg' returns 'bdf'
 ------------------------------------------------------------------------------------------------ */
 
 const onlyOddChars = (str) => {
-  // Solution code here...
+  return str
+    .split("")
+    .filter((character, index) => index % 2 != 0)
+    .join("");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -65,7 +80,7 @@ Write a function named allHappy that takes in an array of strings and returns a 
 ------------------------------------------------------------------------------------------------ */
 
 const allHappy = (arr) => {
-  // Solution code here...
+  return arr.every((string) => string.includes(":)"));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -75,7 +90,7 @@ Write a function named findAnything that takes in an array of strings, along wit
 ------------------------------------------------------------------------------------------------ */
 
 const findAnything = (arr, target) => {
-  // Solution code here...
+  return arr.filter((string) => string.includes(target));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -85,7 +100,7 @@ Write a function named findEvery that takes in an array of strings, along with a
 ------------------------------------------------------------------------------------------------ */
 
 const findEvery = (arr, target) => {
-  // Solution code here...
+  return arr.every((string) => string.includes(target));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -101,7 +116,9 @@ For example, [['Brook Testing', 'Actual Person'], ['Human Person', 'Brook again'
 ------------------------------------------------------------------------------------------------ */
 
 const unenrollBrook = (arr) => {
-  // Solution code here...
+  return arr.map((course) => {
+    return course.filter((name) => !name.includes("Brook"));
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -136,7 +153,16 @@ const daysOfWeek = [
 ];
 
 const sortByDay = (arr) => {
-  // Solution code here...
+  let result = [];
+
+  daysOfWeek.forEach((day, index) => {
+    result[index] = [];
+    arr.forEach((event) => {
+      if (event.includes(day)) result[index].push(event);
+    });
+  });
+
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -148,7 +174,9 @@ For example, ['abcd', 'efgh', 'ijkl', 'mnop'] returns ['a', 'f', 'k', 'p']
 ------------------------------------------------------------------------------------------------ */
 
 const characterByIndex = (arr) => {
-  // Solution code here...
+  return arr.map((string, index) => {
+    return string.slice(index, index + 1);
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
