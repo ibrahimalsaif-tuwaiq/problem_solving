@@ -111,11 +111,16 @@ Do not use the vertical bar (pipe) in your pattern.
 
 const matchMonth = (input) => {
   const regex1 = /\boct\b/;
-  const regex2 = /\Oct\b/;
+  const regex2 = /\bOct\b/;
   const regex3 = /\bOctober\b/;
   const regex4 = /\boctober\b/;
 
-  return regex1.test(input) || regex2.test(input) || regex3.test(input) || regex4.test(input);
+  return (
+    regex1.test(input) ||
+    regex2.test(input) ||
+    regex3.test(input) ||
+    regex4.test(input)
+  );
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -129,7 +134,7 @@ The expected output of "Hello, and have a wonderful day!" is ["and ", "have ", "
 ------------------------------------------------------------------------------------------------ */
 
 const noPunctuation = (str) => {
-  // Solution code here...
+  return str.match(/\b\w+\s/g);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -145,7 +150,7 @@ For example, 'Welcome to Code 301!' will return 'W_lc_m_ t_ C_d_ 301!'.
 ------------------------------------------------------------------------------------------------ */
 
 let hangman = (str) => {
-  // Solution code here...
+  return str.replace(/[aeiou]/gi, "_");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -162,7 +167,7 @@ const seashells =
   "She sells seashells by the seashore. The shells she sells are surely seashells. So if she sells shells on the seashore, I'm sure she sells seashore shells.";
 
 const findShells = (str) => {
-  // Solution code here...
+  return str.match(/\w+ells\b/g);
 };
 
 /* ------------------------------------------------------------------------------------------------

@@ -55,7 +55,7 @@ If it does, return true. If not, return false.
 ------------------------------------------------------------------------------------------------ */
 
 const hasNumber = (string) => {
-  const regex = /^D[0-9]+$/;
+  const regex = /[a-z][0-9]/i;
 
   return regex.test(string);
 };
@@ -77,7 +77,8 @@ Note: if you ever need to validate an email using a regex in practice, the Inter
 ------------------------------------------------------------------------------------------------ */
 
 const validateEmail = (email) => {
-  const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net)\b/;
+  const regex =
+    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net)\b/;
 
   return regex.test(email);
 };
@@ -104,7 +105,7 @@ Return either true or false.
 ------------------------------------------------------------------------------------------------ */
 
 const validatePhoneNumber = (phoneNumber) => {
-  const regex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+  const regex = /^[+][0-9]{1,3}[-][[(]{0,1}[0-9]+[-)\\s]{0,1}]*[0-9]{4}$/;
 
   return regex.test(phoneNumber);
 };
@@ -119,11 +120,13 @@ findTagNames(['<div><h1>Hello, world!</h1></div>', '<p>Welcome to my site</p>'])
 ------------------------------------------------------------------------------------------------ */
 
 const findTagNames = (elements) => {
-  const regex = /((<\/)\w+(>))/g;
+  const regex = /<\/.+?>/g;
 
-  return elements.map(tag => {
-    if (regex.test(tag)) return
-  })
+  const tagsMatrix = elements.map((tag) => {
+    return tag.match(regex);
+  });
+
+  return [].concat(...tagsMatrix).map((tag) => tag.slice(1, tag.length - 1));
 };
 
 /* ------------------------------------------------------------------------------------------------
