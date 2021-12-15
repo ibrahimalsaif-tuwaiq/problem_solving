@@ -79,8 +79,10 @@ Note: if you ever need to validate an email using a regex in practice, the Inter
 const validateEmail = (email) => {
   const regex =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net)\b/;
+  const moreThanTwoWordsRegex = /^(?!(\.*\.){2})(.*\.){3}.*$/;
 
-  return regex.test(email);
+  if (!moreThanTwoWordsRegex.test(email)) return regex.test(email);
+  return false;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -105,9 +107,12 @@ Return either true or false.
 ------------------------------------------------------------------------------------------------ */
 
 const validatePhoneNumber = (phoneNumber) => {
-  const regex = /^[+][0-9]{1,3}[-][[(]{0,1}[0-9]+[-)\\s]{0,1}]*[0-9]{4}$/;
+  const regex1 = /^([0-9]{3,6})[- ]?([0-9]{3})[- ]?([0-9]{4})$/g;
+  const regex2 = /^\(([0-9]{3,6})\)[- ]?([0-9]{3})[- ]?([0-9]{4})$/g;
 
-  return regex.test(phoneNumber);
+  if (phoneNumber.match(/\d/g) && phoneNumber.match(/\d/g).length == 10)
+    return regex1.test(phoneNumber) || regex2.test(phoneNumber);
+  else false;
 };
 
 /* ------------------------------------------------------------------------------------------------
