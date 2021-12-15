@@ -12,7 +12,9 @@ Note the space in between first and last names.
 You can assume that neither firstName nor lastName will be blank
 ------------------------------------------------------------------------------------------------ */
 const toLastNames = (people) => {
-  // Solution code here...
+  return people.map((person) => {
+    return `${person.firstName} ${person.lastName}`;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -24,7 +26,10 @@ If the PIN is four numerical digits long, return true. Otherwise, return false.
 ------------------------------------------------------------------------------------------------ */
 
 const validatePin = (pin) => {
-  // Solution code here...
+  const regex = /[0-9]/;
+
+  if (String(pin).length == 4 && regex.test(pin)) return true;
+  else false;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -36,7 +41,9 @@ If the word is between 5 and 10 characters long, return true. Otherwise, return 
 ------------------------------------------------------------------------------------------------ */
 
 const validateWord = (word) => {
-  // Solution code here...
+  const regex = /^[a-z]{5,10}$/i;
+
+  return regex.test(word);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -48,7 +55,9 @@ If it does, return true. If not, return false.
 ------------------------------------------------------------------------------------------------ */
 
 const hasNumber = (string) => {
-  // Solution code here...
+  const regex = /^D[0-9]+$/;
+
+  return regex.test(string);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -68,7 +77,9 @@ Note: if you ever need to validate an email using a regex in practice, the Inter
 ------------------------------------------------------------------------------------------------ */
 
 const validateEmail = (email) => {
-  // Solution code here...
+  const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net)\b/;
+
+  return regex.test(email);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -93,7 +104,9 @@ Return either true or false.
 ------------------------------------------------------------------------------------------------ */
 
 const validatePhoneNumber = (phoneNumber) => {
-  // Solution code here...
+  const regex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+
+  return regex.test(phoneNumber);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -106,7 +119,11 @@ findTagNames(['<div><h1>Hello, world!</h1></div>', '<p>Welcome to my site</p>'])
 ------------------------------------------------------------------------------------------------ */
 
 const findTagNames = (elements) => {
-  // Solution code here...
+  const regex = /((<\/)\w+(>))/g;
+
+  return elements.map(tag => {
+    if (regex.test(tag)) return
+  })
 };
 
 /* ------------------------------------------------------------------------------------------------
